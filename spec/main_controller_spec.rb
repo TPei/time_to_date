@@ -55,4 +55,25 @@ RSpec.describe MainController do
       end
     end
   end
+
+  describe 'GET /api/Calendars/timeToDate' do
+    context 'with existing event' do
+      before do
+        DB[:events].insert(name: 'testEvent', date: Date.today + 1)
+      end
+
+      it 'returns time to date' do
+        get '/api/Calendars/timeToDate?eventName=testEvent'
+        expect(last_response.status).to eq 200
+        # TODO: check that time to date is calculated
+      end
+    end
+
+    context 'with non-existing event' do
+      it 'returns 404' do
+        get '/api/Calendars/timeTodate?eventName=immaginative'
+        expect(last_response.status).to eq 404
+      end
+    end
+  end
 end

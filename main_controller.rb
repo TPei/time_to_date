@@ -26,8 +26,7 @@ class MainController < Sinatra::Base
     halt 422 if date.nil?
 
     # all is well
-    Event = DB[:events]
-    id = Event.insert(name: name, date: date)
+    id = DB[:events].insert(name: name, date: date)
 
     if id.nil?
       halt 500
@@ -36,10 +35,16 @@ class MainController < Sinatra::Base
     end
   end
 
-  get '/api/Calendars/timeToDate/:event_name' do
-    event_name = params[:event_name]
-    # TODO: implement
-    'TIME TO DATE ENDPOINT'
+  get '/api/Calendars/timeToDate' do
+    event_name = params[:eventName]
+    events = DB[:events].where(name: event_name).to_a
+
+    if events.empty?
+      halt 404
+    else
+      # TODO: calculate time to date
+      events[0].to_json
+    end
   end
 
   def parse_date(string_date)
