@@ -25,7 +25,7 @@ class MainController < Sinatra::Base
 
     halt 422 if date.nil?
 
-    # all is well
+    # TODO: what if event name already exists?
     id = DB[:events].insert(name: name, date: date)
 
     if id.nil?
