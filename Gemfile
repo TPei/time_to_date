@@ -4,6 +4,8 @@ gem 'sinatra'
 gem 'sequel'
 gem 'rack'
 gem 'pg'
+gem 'dotenv'
+gem 'rake'
 
 group :test do
   gem 'rspec'

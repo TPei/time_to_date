@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'json'
 require 'date'
+require './config/sequel_connect'
 
 class MainController < Sinatra::Base
   get '/info' do
