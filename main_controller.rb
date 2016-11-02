@@ -30,11 +30,11 @@ class MainController < Sinatra::Base
     event_name = params[:eventName]
     events = DB[:events].where(name: event_name).to_a
 
-    if events.empty?
-      halt 404
-    else
+    begin
       # TODO: calculate time to date
-      events[0].to_json
+      events.fetch(0).to_json
+    rescue IndexError
+      halt 422
     end
   end
 
