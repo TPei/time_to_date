@@ -41,7 +41,7 @@ namespace :db do
     Dotenv.load
     Sequel.extension :migration
 
-    db_uri = ENV['RDS_DB_URI'] ||
+    db_uri = ENV['DB_URI'] ||
       'postgres://127.0.0.1:5432/postgres?user=postgres'
 
     db = Sequel.connect(db_uri)
@@ -58,7 +58,7 @@ namespace :db do
     Dotenv.load
     Sequel.extension :migration
 
-    db_uri = ENV['RDS_DB_URI'] ||
+    db_uri = ENV['DB_URI'] ||
       'postgres://127.0.0.1:5432/postgres?user=postgres'
 
     db = Sequel.connect(db_uri)
