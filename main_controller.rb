@@ -10,7 +10,11 @@ class MainController < Sinatra::Base
   put '/api/Calendars' do
     # expects json body
     # of format { name: String, date: String }
-    data = JSON.parse(request.body.read)
+    begin
+      data = JSON.parse(request.body.read)
+    rescue JSON::ParserError
+      halt 422
+    end
     name = data['name']
     date = data['date']
 
