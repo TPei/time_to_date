@@ -10,7 +10,7 @@ put '/event' do
 end
 
 get '/timeToDate/:event_name' do
-  event_name = params[:even_name]
+  event_name = params[:event_name]
   # TODO: implement
   'TIME TO DATE ENDPOINT'
 end
