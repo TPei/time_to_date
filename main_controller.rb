@@ -38,9 +38,11 @@ class MainController < Sinatra::Base
     end
   end
 
-  def parse_date(string_date)
-    Date.parse(string_date)
-  end
+  private
+
+    def parse_date(string_date)
+      Date.parse(string_date)
+    end
 end
 
 use MainController
