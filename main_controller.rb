@@ -26,9 +26,14 @@ class MainController < Sinatra::Base
     halt 422 if date.nil?
 
     # all is well
+    Event = DB[:events]
+    id = Event.insert(name: name, date: date)
 
-    # TODO: save to db
-    "created event with name: #{name} and date: #{date}"
+    if id.nil?
+      halt 500
+    else
+      { id: id, name: name, date: date }.to_json
+    end
   end
 
   get '/api/Calendars/timeToDate/:event_name' do

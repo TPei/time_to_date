@@ -19,9 +19,15 @@ RSpec.describe MainController do
   describe 'PUT /api/Calendars' do
     context 'with legal data' do
       it 'returns some info on saved object' do
+        count = DB[:events].count
         body = { name: 'event', date: '2016-10-30' }.to_json
         put '/api/Calendars', params = body
         expect(last_response.status).to eq 200
+        response = JSON.parse(last_response.body)
+        expect(response.has_key?('id')).to eq true
+        expect(response['name']).to eq JSON.parse(body)['name']
+        expect(response['date']).to eq JSON.parse(body)['date']
+        expect(DB[:events].count).to eq count + 1
       end
     end
 
