@@ -38,3 +38,5 @@ class MainController < Sinatra::Base
     nil
   end
 end
+
+use MainController
