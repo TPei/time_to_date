@@ -6,6 +6,7 @@ gem 'rack'
 gem 'pg'
 gem 'dotenv'
 gem 'rake'
+gem 'timecop'
 
 group :test do
   gem 'rspec'

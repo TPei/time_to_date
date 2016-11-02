@@ -31,8 +31,11 @@ class MainController < Sinatra::Base
     events = DB[:events].where(name: event_name).to_a
 
     begin
-      # TODO: calculate time to date
-      events.fetch(0).to_json
+      now = Time.now.to_i
+      target_time = events.fetch(0).fetch(:date).to_time.to_i
+      diffs = break_down_diff(target_time - now)
+
+      { timeToEvent: "#{diffs[0]} Jahre, #{diffs[1]} Monate, #{diffs[2]} Tage, #{diffs[3]} Stunden, #{diffs[4]} Minuten" }.to_json
     rescue IndexError
       halt 422
     end
@@ -42,6 +45,36 @@ class MainController < Sinatra::Base
 
     def parse_date(string_date)
       Date.parse(string_date)
+    end
+
+    # get [year, months, days, hours, minutes] from time diff in seconds
+    def break_down_diff(diff_in_seconds)
+      seconds_diff = diff_in_seconds
+
+      results = []
+
+      # TODO: not all months have 30 days
+      # to minutes, hours, days, months, years
+      steps = [60, 60, 24, 30, 12]
+
+      while true
+        # x of step size (3 days)
+        x = seconds_diff
+        steps.each do |step|
+          x = x.to_f / step
+        end
+        results << x.to_i
+
+        y = x.to_i
+
+        steps.each do |step|
+          y = y * step
+        end
+
+        seconds_diff = seconds_diff - y
+        steps.pop
+        return results if steps.empty?
+      end
     end
 end
 
