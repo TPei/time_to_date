@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'json'
 require './main_controller.rb'
+require './config/sequel_connect'
 
 RSpec.describe MainController do
   def app
