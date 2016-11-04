@@ -62,8 +62,8 @@ RSpec.describe MainController do
       before do
         # TODO: clean database
         @event_name = (0...8).map { (65 + rand(26)).chr }.join
-        # DB[:events].insert(name: @event_name, date: Date.parse('2017-12-05'))
-        DB[:events].insert(name: @event_name, date: Date.parse('2016-11-05'))
+        DB[:events].insert(name: @event_name, date: Date.parse('2018-03-05'))
+        #DB[:events].insert(name: @event_name, date: Date.parse('2016-11-05'))
       end
 
       it 'returns time to date' do
@@ -73,8 +73,8 @@ RSpec.describe MainController do
           expect(last_response.status).to eq 200
           expect(response.has_key?('timeToEvent')).to eq true
           expect(response['timeToEvent']).
-            to eq('0 Jahre, 0 Monate, 2 Tage, 3 Stunden, 8 Minuten')
-            # to eq '1 Jahre, 1 Monate, 2 Tage, 3 Stunden, 8 Minuten'
+            #to eq('0 Jahre, 0 Monate, 2 Tage, 3 Stunden, 8 Minuten')
+            to eq '1 Jahre, 4 Monate, 2 Tage, 3 Stunden, 8 Minuten'
         end
       end
     end
