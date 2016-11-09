@@ -50,42 +50,36 @@ class MainController < Sinatra::Base
     # get [year, months, days, hours, minutes] from time diff in seconds
     def precise_diff(to, from)
       years = to.year - from.year
-      months = to.month - from.month + 12
+      months = to.month - from.month
       days = to.day - from.day
-      hours = to.hour - from.hour + 24
-      minutes = to.minute - from.minute + 60
+      hours = to.hour - from.hour
+      minutes = to.minute - from.minute
 
-      if minutes == 60
-        minutes = 0
-      else
+      if minutes < 0
+        minutes += 60
         hours -= 1
       end
 
-      if hours == 24
-        hours = 0
-      else
+      if hours < 0
+        hours += 24
         days -= 1
       end
 
-      if last_day_in_month?(days, to.month - 1)
-        days = 0
-      else
-        months -= 1
+      if days < 0
+        days += last_day_in_month(months-1)
       end
 
-      if months == 12
-        months = 0
-      else
+      if months < 0
+        months += 12
         years -= 1
       end
+
 
       [years, months, days, hours, minutes]
     end
 
-    def last_day_in_month?(day, month)
-      (month == 2 && (day == 28 || day == 29)) ||
-        (day == 30 && [1, 3, 5, 7, 8, 10, 12].includes?(month)) ||
-        (day == 31 && [2, 4, 6, 9, 11].includes?(month))
+    def last_day_in_month(month)
+      [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month]
     end
 end
 
