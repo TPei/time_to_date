@@ -83,4 +83,4 @@ class MainController < Sinatra::Base
     end
 end
 
-use MainController
+#use MainController
