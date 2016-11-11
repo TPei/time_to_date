@@ -37,7 +37,7 @@ class MainController < Sinatra::Base
 
       { timeToEvent: "#{diffs[0]} Jahre, #{diffs[1]} Monate, #{diffs[2]} Tage, #{diffs[3]} Stunden, #{diffs[4]} Minuten" }.to_json
     rescue IndexError
-      halt 422
+      halt 404
     end
   end
 
